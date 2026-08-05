@@ -11,19 +11,60 @@ const INITIAL = {
   problema: '',
 }
 
+const GOOGLE_FORMS_ENDPOINT =
+  'https://docs.google.com/forms/d/e/1FAIpQLScYRPi3sUyCsGp8VXVsHsowgc_lJ7JybphKuTsz-NQ0gEEDyA/formResponse'
+
+const PERFIL_LABELS = {
+  'corretor-autonomo': 'Corretor autônomo',
+  'corretor-imobiliaria': 'Corretor de imobiliária',
+  'gestor-imobiliaria': 'Gestor de imobiliária',
+  outro: 'Outro',
+}
+
 export default function Waitlist() {
   const [form, setForm] = useState(INITIAL)
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle')
+
+  const isSubmitting = status === 'submitting'
+  const isSubmitted = status === 'success'
+  const isLocked = isSubmitting || isSubmitted
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
+    if (status !== 'idle') setStatus('idle')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: integrar com o endpoint real de captação de leads.
-    setSubmitted(true)
+    if (isLocked) return
+
+    setStatus('submitting')
+
+    const body = new URLSearchParams({
+      'entry.595340833': form.nome,
+      'entry.415532994': form.email,
+      'entry.1717037175': form.whatsapp,
+      'entry.80196197': PERFIL_LABELS[form.perfil],
+      'entry.1209841237': form.desafio,
+      'entry.928228932': form.problema,
+    })
+
+    try {
+      await fetch(GOOGLE_FORMS_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body,
+      })
+
+      setForm(INITIAL)
+      setStatus('success')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -57,7 +98,7 @@ export default function Waitlist() {
                 id="nome"
                 name="nome"
                 type="text"
-                disabled={submitted}
+                disabled={isLocked}
                 value={form.nome}
                 onChange={handleChange}
                 placeholder="Seu nome completo (opcional)"
@@ -74,7 +115,7 @@ export default function Waitlist() {
                 name="email"
                 type="email"
                 required
-                disabled={submitted}
+                disabled={isLocked}
                 value={form.email}
                 onChange={handleChange}
                 placeholder="voce@email.com"
@@ -90,7 +131,7 @@ export default function Waitlist() {
                 id="whatsapp"
                 name="whatsapp"
                 type="tel"
-                disabled={submitted}
+                disabled={isLocked}
                 value={form.whatsapp}
                 onChange={handleChange}
                 placeholder="(00) 00000-0000 (opcional)"
@@ -121,7 +162,7 @@ export default function Waitlist() {
                       value={opt.value}
                       checked={form.perfil === opt.value}
                       onChange={handleChange}
-                      disabled={submitted}
+                      disabled={isLocked}
                       className="hidden"
                     />
                     {opt.label}
@@ -138,7 +179,7 @@ export default function Waitlist() {
                 id="desafio"
                 name="desafio"
                 rows="4"
-                disabled={submitted}
+                disabled={isLocked}
                 value={form.desafio}
                 onChange={handleChange}
                 placeholder="Conte aqui o principal desafio"
@@ -154,7 +195,7 @@ export default function Waitlist() {
                 id="problema"
                 name="problema"
                 rows="4"
-                disabled={submitted}
+                disabled={isLocked}
                 value={form.problema}
                 onChange={handleChange}
                 placeholder="Compartilhe a sua prioridade"
@@ -164,10 +205,21 @@ export default function Waitlist() {
 
             <button
               type="submit"
-              disabled={submitted}
+              disabled={isLocked}
+              aria-busy={isSubmitting}
               className="w-full mt-2 bg-scarlet text-white text-sm font-medium py-3.5 rounded-lg hover:bg-scarlet-dark transition-colors duration-300 disabled:opacity-60"
             >
-              {submitted ? 'Cadastro recebido' : 'Entrar na lista de espera'}
+              {isSubmitting ? (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <span
+                    aria-hidden="true"
+                    className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                  />
+                  Enviando...
+                </span>
+              ) : (
+                isSubmitted ? 'Cadastro realizado' : 'Entrar na lista de espera'
+              )}
             </button>
 
             <p className="text-center text-sm text-graphite/70">
@@ -175,17 +227,26 @@ export default function Waitlist() {
             </p>
 
             <AnimatePresence>
-              {submitted && (
+              {status === 'success' && (
                 <motion.p
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center text-sm text-scarlet pt-2 whitespace-pre-line"
                 >
-                  Obrigado por contribuir com a Scarlet.
+                  Cadastro realizado com sucesso!
                   <br />
-                  Sua resposta foi recebida.
                   <br />
-                  Estamos construindo a Scarlet ouvindo quem vive o mercado imobiliário todos os dias.
+                  Obrigado por entrar na lista de espera da Scarlet.
+                </motion.p>
+              )}
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-sm text-scarlet pt-2"
+                  role="alert"
+                >
+                  Não foi possível concluir o cadastro. Tente novamente.
                 </motion.p>
               )}
             </AnimatePresence>
