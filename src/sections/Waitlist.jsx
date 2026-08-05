@@ -102,7 +102,7 @@ export default function Waitlist() {
                 value={form.nome}
                 onChange={handleChange}
                 placeholder="Seu nome completo (opcional)"
-                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-ink transition-colors outline-none disabled:opacity-50"
+                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50"
               />
             </div>
 
@@ -119,7 +119,7 @@ export default function Waitlist() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="voce@email.com"
-                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-ink transition-colors outline-none disabled:opacity-50"
+                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50"
               />
             </div>
 
@@ -135,7 +135,7 @@ export default function Waitlist() {
                 value={form.whatsapp}
                 onChange={handleChange}
                 placeholder="(00) 00000-0000 (opcional)"
-                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-ink transition-colors outline-none disabled:opacity-50"
+                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50"
               />
             </div>
 
@@ -152,7 +152,7 @@ export default function Waitlist() {
                     key={opt.value}
                     className={`flex items-center justify-center gap-2 border rounded-lg px-4 py-3 text-sm cursor-pointer transition-colors ${
                       form.perfil === opt.value
-                        ? 'border-ink bg-ink text-white'
+                        ? 'border-scarlet bg-scarlet text-white'
                         : 'border-line hover:border-graphite'
                     }`}
                   >
@@ -183,7 +183,7 @@ export default function Waitlist() {
                 value={form.desafio}
                 onChange={handleChange}
                 placeholder="Conte aqui o principal desafio"
-                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-ink transition-colors outline-none disabled:opacity-50 resize-none"
+                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50 resize-none"
               />
             </div>
 
@@ -199,7 +199,7 @@ export default function Waitlist() {
                 value={form.problema}
                 onChange={handleChange}
                 placeholder="Compartilhe a sua prioridade"
-                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-ink transition-colors outline-none disabled:opacity-50 resize-none"
+                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50 resize-none"
               />
             </div>
 

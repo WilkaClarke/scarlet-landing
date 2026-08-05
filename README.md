@@ -30,7 +30,7 @@ public/
   robots.txt
 src/
   assets/
-    scarlet-mark.svg       ícone da marca, importado pelo Vite (processado no build)
+    scarlet-logo.jpeg      marca oficial, importada pelo Vite (processada no build)
   components/               peças reutilizáveis e genéricas
     Reveal.jsx                wrapper de animação de entrada (scroll reveal)
     Logo.jsx                   marca + wordmark (usado no Nav e no Footer)
@@ -67,7 +67,7 @@ Definidos em `tailwind.config.js`:
 - `ink` `#111113` — texto principal / seções escuras
 - `graphite` `#57575C` — texto secundário
 - `smoke` `#8C8C90` — texto terciário / labels
-- `scarlet` `#E01A2B` — cor de marca, usada só em detalhes (CTA, ícones, indicadores)
+- `scarlet` `#123D33` — verde oficial da marca, usado em detalhes (CTA, ícones, indicadores)
 
 Tipografia: Instrument Sans (display), Inter (corpo), IBM Plex Mono (labels/dados).
 

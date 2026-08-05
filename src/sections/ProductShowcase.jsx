@@ -40,8 +40,8 @@ export default function ProductShowcase() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="lg:col-span-2 rounded-2xl bg-ink p-2">
-            <div className="rounded-xl bg-[#18181B] overflow-hidden h-full p-5">
+          <Reveal delay={0.08} className="lg:col-span-2 rounded-2xl bg-scarlet-dark p-2">
+            <div className="rounded-xl bg-[#0D3028] overflow-hidden h-full p-5">
               <p className="text-[11px] font-mono text-white/40 uppercase tracking-wide mb-4">
                 Assistente Scarlet
               </p>

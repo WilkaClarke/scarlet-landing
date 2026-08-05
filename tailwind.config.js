@@ -12,9 +12,9 @@ export default {
         graphite: '#57575C',
         smoke: '#8C8C90',
         scarlet: {
-          DEFAULT: '#E01A2B',
-          dark: '#B4111F',
-          50: '#FDECEC',
+          DEFAULT: '#123D33',
+          dark: '#092A23',
+          50: '#E9F1EF',
         },
       },
       fontFamily: {

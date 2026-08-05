@@ -13,7 +13,7 @@
     @apply bg-scarlet text-white;
   }
   :focus-visible {
-    outline: 2px solid #E01A2B;
+    outline: 2px solid #123D33;
     outline-offset: 3px;
   }
 }

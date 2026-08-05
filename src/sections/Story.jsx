@@ -23,7 +23,7 @@ export default function Story() {
           </p>
         </Reveal>
         <Reveal delay={0.24} className="mt-12 flex justify-center">
-          <div className="w-px h-16 bg-gradient-to-b from-scarlet to-transparent" />
+          <div className="w-px h-16 bg-gradient-to-b from-white/25 to-transparent" />
         </Reveal>
       </div>
     </section>

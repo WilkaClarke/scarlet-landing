@@ -1,15 +1,29 @@
-import scarletMark from '../assets/scarlet-mark.svg'
+import scarletLogo from '../assets/scarlet-logo.jpeg'
 
-/**
- * Brand mark + wordmark. `variant="mark"` renders only the icon (footer, favic-like uses).
- */
-export default function Logo({ variant = 'full', className = '' }) {
+export default function Logo({ className = '' }) {
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <img src={scarletMark} alt="" width={20} height={20} className="rounded-[6px]" />
-      {variant === 'full' && (
-        <span className="font-display text-xl tracking-tight font-semibold text-ink">Scarlet</span>
-      )}
+    <span
+      className={`inline-flex items-end isolate h-[31px] overflow-hidden ${className}`}
+      aria-label="Scarlet"
+    >
+      <span
+        aria-hidden="true"
+        className="block h-[31px] w-[21px] shrink-0 bg-no-repeat mix-blend-multiply"
+        style={{
+          backgroundImage: `url(${scarletLogo})`,
+          backgroundSize: '54px 54px',
+          backgroundPosition: '-17px -4px',
+        }}
+      />
+      <span
+        aria-hidden="true"
+        className="-ml-px mb-[3px] block h-[17px] w-[119px] shrink-0 bg-no-repeat mix-blend-multiply"
+        style={{
+          backgroundImage: `url(${scarletLogo})`,
+          backgroundSize: '188px 188px',
+          backgroundPosition: '-41px -126px',
+        }}
+      />
     </span>
   )
 }

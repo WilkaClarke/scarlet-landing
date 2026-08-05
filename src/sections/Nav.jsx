@@ -27,9 +27,9 @@ export default function Nav() {
           <Logo />
         </a>
 
-        <nav className="hidden md:flex items-center gap-10 text-sm text-graphite" aria-label="Navegação principal">
+        <nav className="hidden md:flex items-center gap-10 text-sm text-smoke" aria-label="Navegação principal">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-ink transition-colors">
+            <a key={l.href} href={l.href} className="hover:text-scarlet transition-colors">
               {l.label}
             </a>
           ))}
@@ -37,7 +37,7 @@ export default function Nav() {
 
         <a
           href="#lista-de-espera"
-          className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium bg-ink text-white px-4 py-2.5 rounded-full hover:bg-scarlet transition-colors duration-300"
+          className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium bg-scarlet text-white px-4 py-2.5 rounded-full hover:bg-scarlet-dark transition-colors duration-300"
         >
           Entrar na lista de espera
         </a>

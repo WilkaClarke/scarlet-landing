@@ -33,7 +33,7 @@ export default function Hero() {
           <Reveal delay={0.24} className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="#lista-de-espera"
-              className="inline-flex items-center gap-2 bg-ink text-white text-sm font-medium pl-5 pr-4 py-3.5 rounded-full hover:bg-scarlet transition-all duration-300 hover:pr-3 hover:pl-6"
+              className="inline-flex items-center gap-2 bg-scarlet text-white text-sm font-medium pl-5 pr-4 py-3.5 rounded-full hover:bg-scarlet-dark transition-all duration-300 hover:pr-3 hover:pl-6"
             >
               Entrar na lista de espera
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -48,7 +48,7 @@ export default function Hero() {
             </a>
             <a
               href="#recursos"
-              className="inline-flex items-center gap-2 text-sm font-medium text-ink px-5 py-3.5 rounded-full border border-line hover:border-ink transition-colors duration-300"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink px-5 py-3.5 rounded-full border border-line hover:border-scarlet transition-colors duration-300"
             >
               Conheça a Scarlet
             </a>
@@ -69,8 +69,8 @@ export default function Hero() {
             className="relative mx-auto max-w-md lg:max-w-none -mt-3"
             animate={{ y: 0, rotate: 0 }}
           >
-            <div className="rounded-[22px] bg-ink shadow-[0_40px_80px_-20px_rgba(17,17,19,0.35)] p-1.5">
-              <div className="rounded-[16px] bg-[#18181B] overflow-hidden">
+            <div className="rounded-[22px] bg-scarlet-dark shadow-[0_40px_80px_-20px_rgba(9,42,35,0.35)] p-1.5">
+              <div className="rounded-[16px] bg-[#0D3028] overflow-hidden">
                 <MockupChrome label="app.scarletapp.com.br" dark />
                 <div className="flex">
                   <div className="w-14 py-5 flex flex-col items-center gap-5 border-r border-white/5">
@@ -111,7 +111,7 @@ export default function Hero() {
                         <polyline
                           points="0,45 30,38 60,40 90,25 120,30 150,15 180,20 210,8 240,12"
                           fill="none"
-                          stroke="#E01A2B"
+                          stroke="#123D33"
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
