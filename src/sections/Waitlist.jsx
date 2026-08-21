@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from '../components/Reveal.jsx'
+import useLockBodyScroll from '../hooks/useLockBodyScroll.js'
 
 const INITIAL = {
   nome: '',
@@ -53,6 +54,8 @@ export default function Waitlist() {
   const isSubmitting = status === 'submitting'
   const isSubmitted = status === 'success'
   const isLocked = isSubmitting || isSubmitted
+
+  useLockBodyScroll(isSubmitted)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -301,15 +304,6 @@ export default function Waitlist() {
             </p>
 
             <AnimatePresence>
-              {status === 'success' && (
-                <motion.p
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center text-sm text-scarlet pt-2 whitespace-pre-line"
-                >
-                  Obrigado pela sua contribuição.
-                </motion.p>
-              )}
               {status === 'error' && (
                 <motion.p
                   initial={{ opacity: 0, y: -6 }}
@@ -324,6 +318,53 @@ export default function Waitlist() {
           </form>
         </Reveal>
       </div>
+
+      <AnimatePresence>
+        {isSubmitted && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-ink/45 px-5 py-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="waitlist-confirmation-title"
+              aria-describedby="waitlist-confirmation-description"
+              className="w-full max-w-md rounded-2xl border border-line bg-paper p-7 text-center shadow-2xl sm:p-9"
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+            >
+              <h3
+                id="waitlist-confirmation-title"
+                className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl"
+              >
+                Enviamos um e-mail de confirmação para você.
+              </h3>
+              <div
+                id="waitlist-confirmation-description"
+                className="mt-5 space-y-3 text-sm leading-relaxed text-graphite sm:text-base"
+              >
+                <p>
+                  Abra seu e-mail e clique em <strong className="font-semibold text-ink">“Confirmar meu e-mail”</strong>{' '}
+                  para entrar na lista de espera da Scarlet.
+                </p>
+                <p>Não encontrou? Verifique também o spam ou lixo eletrônico.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setStatus('idle')}
+                className="mt-7 w-full rounded-lg bg-scarlet py-3.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-scarlet-dark sm:w-auto sm:min-w-40 sm:px-8"
+              >
+                Obrigada
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
