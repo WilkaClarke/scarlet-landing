@@ -50,12 +50,13 @@ const formatBrazilianPhone = (value) => {
 export default function Waitlist() {
   const [form, setForm] = useState(INITIAL)
   const [status, setStatus] = useState('idle')
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
   const isSubmitting = status === 'submitting'
   const isSubmitted = status === 'success'
   const isLocked = isSubmitting || isSubmitted
 
-  useLockBodyScroll(isSubmitted)
+  useLockBodyScroll(isConfirmationOpen)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -114,6 +115,7 @@ export default function Waitlist() {
 
       setForm(INITIAL)
       setStatus('success')
+      setIsConfirmationOpen(true)
     } catch {
       setStatus('error')
     }
@@ -135,7 +137,17 @@ export default function Waitlist() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <form
+          {isSubmitted ? (
+            <div className="rounded-2xl border border-line bg-paper p-7 text-center sm:p-8">
+              <h3 className="font-display text-2xl font-semibold tracking-tight text-ink">
+                Inscrição enviada.
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-graphite sm:text-base">
+                Agora é só confirmar pelo e-mail que enviamos para você.
+              </p>
+            </div>
+          ) : (
+            <form
             onSubmit={handleSubmit}
             className="space-y-4 bg-paper border border-line rounded-2xl p-7 sm:p-8"
           >
@@ -315,12 +327,13 @@ export default function Waitlist() {
                 </motion.p>
               )}
             </AnimatePresence>
-          </form>
+            </form>
+          )}
         </Reveal>
       </div>
 
       <AnimatePresence>
-        {isSubmitted && (
+        {isConfirmationOpen && (
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-ink/45 px-5 py-8"
             initial={{ opacity: 0 }}
@@ -356,7 +369,7 @@ export default function Waitlist() {
               </div>
               <button
                 type="button"
-                onClick={() => setStatus('idle')}
+                onClick={() => setIsConfirmationOpen(false)}
                 className="mt-7 w-full rounded-lg bg-scarlet py-3.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-scarlet-dark sm:w-auto sm:min-w-40 sm:px-8"
               >
                 Obrigada
