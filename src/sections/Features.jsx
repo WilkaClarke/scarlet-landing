@@ -3,15 +3,8 @@ import FeatureCard from '../components/FeatureCard.jsx'
 
 const FEATURES = [
   {
-    title: 'Visitas',
-    desc: 'Tenha as informações importantes sempre à mão durante a visita.',
-    icon: (
-      <path d="M3 10l9-6 9 6v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9z" strokeLinecap="round" strokeLinejoin="round" />
-    ),
-  },
-  {
-    title: 'Carteira de imóveis',
-    desc: 'Organize sua carteira de imóveis de forma simples e eficiente.',
+    title: 'Agenda',
+    desc: 'Organize compromissos e tarefas e saiba o que precisa da sua atenção a cada dia.',
     icon: (
       <>
         <rect x="3" y="5" width="18" height="16" rx="2" />
@@ -20,38 +13,8 @@ const FEATURES = [
     ),
   },
   {
-    title: 'Captações',
-    desc: 'Acompanhe cada imóvel desde o primeiro contato até a entrada na carteira.',
-    icon: (
-      <>
-        <path d="M12 8v4l3 2" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="12" cy="12" r="9" />
-      </>
-    ),
-  },
-  {
-    title: 'Documentos',
-    desc: 'Centralize documentos e acompanhe pendências em um só lugar.',
-    icon: (
-      <>
-        <path d="M8 3h8l4 4v14a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M9 13l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
-      </>
-    ),
-  },
-  {
-    title: 'ACM',
-    desc: 'Construa análises comparativas com mais organização e confiança.',
-    icon: <path d="M4 19V9M11 19V5M18 19v-7" strokeLinecap="round" />,
-  },
-  {
-    title: 'Agenda e oportunidades',
-    desc: 'Organize sua rotina e acompanhe cada oportunidade no momento certo.',
-    icon: <path d="M12 3l2.4 5.8L20 11l-5.6 2.2L12 19l-2.4-5.8L4 11l5.6-2.2L12 3z" strokeLinecap="round" strokeLinejoin="round" />,
-  },
-  {
     title: 'Clientes',
-    desc: 'Mantenha o histórico de cada atendimento sempre acessível.',
+    desc: 'Centralize contatos, preferências e histórico de cada cliente.',
     icon: (
       <>
         <circle cx="9" cy="8" r="3" />
@@ -62,8 +25,50 @@ const FEATURES = [
     ),
   },
   {
+    title: 'Visitas',
+    desc: 'Registre informações durante a visita, direto do celular.',
+    icon: (
+      <path d="M3 10l9-6 9 6v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9z" strokeLinecap="round" strokeLinejoin="round" />
+    ),
+  },
+  {
+    title: 'ACM',
+    desc: 'Organize dados e comparáveis para apoiar suas análises de mercado.',
+    icon: <path d="M4 19V9M11 19V5M18 19v-7" strokeLinecap="round" />,
+  },
+  {
+    title: 'Apresentações',
+    desc: 'Organize as informações necessárias para apresentar seu trabalho ao cliente.',
+    icon: (
+      <>
+        <rect x="3" y="4" width="18" height="13" rx="2" />
+        <path d="M8 21l4-4 4 4M8 12l3-3 2 2 3-3" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    title: 'Documentos',
+    desc: 'Mantenha documentos e informações relacionados ao atendimento organizados.',
+    icon: (
+      <>
+        <path d="M8 3h8l4 4v14a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9 13l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    title: 'Relatórios',
+    desc: 'Transforme as informações registradas em relatórios organizados para acompanhar o seu trabalho.',
+    icon: (
+      <>
+        <path d="M7 3h7l4 4v14H7z" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14 3v5h4M10 12h5M10 16h5" strokeLinecap="round" />
+      </>
+    ),
+  },
+  {
     title: 'Produtividade',
-    desc: 'Tenha mais clareza sobre o que precisa ser feito em cada etapa do trabalho.',
+    desc: 'Menos tempo procurando informações. Mais tempo atendendo clientes.',
     icon: <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" strokeLinecap="round" strokeLinejoin="round" />,
   },
 ]

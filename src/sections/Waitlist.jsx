@@ -7,8 +7,9 @@ const INITIAL = {
   email: '',
   whatsapp: '',
   perfil: 'corretor-autonomo',
-  desafio: '',
-  problema: '',
+  praticidade: [],
+  praticidadeOutro: '',
+  trabalhoCampo: '',
 }
 
 const GOOGLE_FORMS_ENDPOINT =
@@ -21,6 +22,30 @@ const PERFIL_LABELS = {
   outro: 'Outro',
 }
 
+const PRATICIDADE_OPTIONS = [
+  'Ter agenda, clientes e compromissos organizados em um só lugar.',
+  'Registrar informações durante visitas sem precisar reorganizar tudo depois.',
+  'Encontrar rapidamente informações e documentos de cada atendimento.',
+  'Fazer análises e preparar apresentações com mais facilidade.',
+  'Acompanhar o que já foi feito e o que ainda precisa de atenção.',
+  'Outro.',
+]
+
+const formatBrazilianPhone = (value) => {
+  const digits = value.replace(/\D/g, '').slice(0, 11)
+
+  if (!digits) return ''
+  if (digits.length <= 2) return `(${digits}`
+
+  const ddd = digits.slice(0, 2)
+  const number = digits.slice(2)
+
+  if (number.length <= 4) return `(${ddd}) ${number}`
+  if (number.length <= 8) return `(${ddd}) ${number.slice(0, 4)}-${number.slice(4)}`
+
+  return `(${ddd}) ${number.slice(0, 5)}-${number.slice(5)}`
+}
+
 export default function Waitlist() {
   const [form, setForm] = useState(INITIAL)
   const [status, setStatus] = useState('idle')
@@ -31,7 +56,22 @@ export default function Waitlist() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === 'whatsapp' ? formatBrazilianPhone(value) : value,
+    }))
+    if (status !== 'idle') setStatus('idle')
+  }
+
+  const handlePraticidadeChange = (option) => {
+    setForm((prev) => ({
+      ...prev,
+      praticidade: prev.praticidade.includes(option)
+        ? prev.praticidade.filter((item) => item !== option)
+        : [...prev.praticidade, option],
+      praticidadeOutro:
+        option === 'Outro.' && prev.praticidade.includes(option) ? '' : prev.praticidadeOutro,
+    }))
     if (status !== 'idle') setStatus('idle')
   }
 
@@ -46,8 +86,17 @@ export default function Waitlist() {
       'entry.415532994': form.email,
       'entry.1717037175': form.whatsapp,
       'entry.80196197': PERFIL_LABELS[form.perfil],
-      'entry.1209841237': form.desafio,
-      'entry.928228932': form.problema,
+      'entry.1209841237': form.trabalhoCampo,
+    })
+
+    form.praticidade.forEach((option) => {
+      if (option === 'Outro.') {
+        body.append('entry.928228932', '__other_option__')
+        body.append('entry.928228932.other_option_response', form.praticidadeOutro.trim())
+        return
+      }
+
+      body.append('entry.928228932', option)
     })
 
     try {
@@ -78,10 +127,7 @@ export default function Waitlist() {
             A Scarlet quer ouvir você.
           </h2>
           <p className="text-graphite">
-            Conte para a Scarlet como ela pode ajudar no seu dia a dia.
-          </p>
-          <p className="mt-4 text-sm text-graphite/80">
-            A Scarlet nasceu para melhorar a rotina do corretor e continua evoluindo com a experiência de quem vive o mercado imobiliário.
+            Sua experiência contribui para tornar a Scarlet ainda melhor.
           </p>
         </Reveal>
 
@@ -131,6 +177,9 @@ export default function Waitlist() {
                 id="whatsapp"
                 name="whatsapp"
                 type="tel"
+                inputMode="numeric"
+                maxLength="15"
+                required
                 disabled={isLocked}
                 value={form.whatsapp}
                 onChange={handleChange}
@@ -171,34 +220,61 @@ export default function Waitlist() {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="desafio" className="block text-xs font-mono uppercase tracking-wide text-smoke mb-2">
-                Qual é o maior desafio da sua rotina como corretor?
-              </label>
-              <textarea
-                id="desafio"
-                name="desafio"
-                rows="4"
-                disabled={isLocked}
-                value={form.desafio}
-                onChange={handleChange}
-                placeholder="Conte aqui o principal desafio"
-                className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50 resize-none"
-              />
-            </div>
+            <fieldset>
+              <legend className="block text-sm font-mono uppercase tracking-wide text-graphite mb-2">
+                O que tornaria seu dia a dia mais prático?
+              </legend>
+              <div className="space-y-2">
+                {PRATICIDADE_OPTIONS.map((option, index) => (
+                  <label
+                    key={option}
+                    className={`flex items-start gap-3 border rounded-lg px-4 py-3 text-sm cursor-pointer transition-colors ${
+                      form.praticidade.includes(option)
+                        ? 'border-scarlet bg-scarlet-50 text-ink'
+                        : 'border-line bg-white hover:border-graphite'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={form.praticidade.includes(option)}
+                      onChange={() => handlePraticidadeChange(option)}
+                      disabled={isLocked}
+                      required={index === 0 && form.praticidade.length === 0}
+                      className="mt-0.5 h-4 w-4 accent-scarlet"
+                    />
+                    <span>{option}</span>
+                  </label>
+                ))}
+              </div>
+              {form.praticidade.includes('Outro.') && (
+                <input
+                  id="praticidadeOutro"
+                  name="praticidadeOutro"
+                  type="text"
+                  disabled={isLocked}
+                  value={form.praticidadeOutro}
+                  onChange={handleChange}
+                  required
+                  placeholder="Escreva sua resposta"
+                  aria-label="Outra forma de tornar o dia a dia mais prático"
+                  className="mt-3 w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50"
+                />
+              )}
+            </fieldset>
 
             <div>
-              <label htmlFor="problema" className="block text-xs font-mono uppercase tracking-wide text-smoke mb-2">
-                Se a Scarlet pudesse resolver apenas um problema para você, qual seria?
+              <label htmlFor="trabalhoCampo" className="block text-sm font-mono uppercase tracking-wide text-graphite mb-2">
+                O que seria útil em uma ferramenta para o seu trabalho de campo?
               </label>
               <textarea
-                id="problema"
-                name="problema"
+                id="trabalhoCampo"
+                name="trabalhoCampo"
                 rows="4"
+                required
                 disabled={isLocked}
-                value={form.problema}
+                value={form.trabalhoCampo}
                 onChange={handleChange}
-                placeholder="Compartilhe a sua prioridade"
+                placeholder="Compartilhe a sua resposta"
                 className="w-full bg-white border border-line rounded-lg px-4 py-3 text-sm placeholder:text-smoke focus:border-scarlet transition-colors outline-none disabled:opacity-50 resize-none"
               />
             </div>
@@ -217,13 +293,11 @@ export default function Waitlist() {
                   />
                   Enviando...
                 </span>
-              ) : (
-                isSubmitted ? 'Cadastro realizado' : 'Entrar na lista de espera'
-              )}
+              ) : 'Entrar na lista de espera'}
             </button>
 
-            <p className="text-center text-sm text-graphite/70">
-              Obrigado por fazer parte da construção da Scarlet.
+            <p className="text-center text-xs text-graphite/70">
+              Você receberá apenas 3 e-mails sobre a Scarlet: confirmação, lançamento e acesso.
             </p>
 
             <AnimatePresence>
@@ -233,10 +307,7 @@ export default function Waitlist() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center text-sm text-scarlet pt-2 whitespace-pre-line"
                 >
-                  Cadastro realizado com sucesso!
-                  <br />
-                  <br />
-                  Obrigado por entrar na lista de espera da Scarlet.
+                  Obrigado pela sua contribuição.
                 </motion.p>
               )}
               {status === 'error' && (

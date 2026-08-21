@@ -1,38 +1,17 @@
 import Reveal from '../components/Reveal.jsx'
-import RoadmapItem from '../components/RoadmapItem.jsx'
 
-const ROADMAP = [
+const EVOLUTION_AREAS = [
   {
-    title: 'Descrição inteligente de imóveis',
-    desc: 'Crie conteúdos de anúncio mais rápidos e precisos a partir das características do imóvel.',
+    title: 'Mais inteligência para o trabalho de campo',
+    desc: 'Ferramentas pensadas para simplificar etapas e tornar a rotina do corretor mais prática.',
   },
   {
-    title: 'Controle de captações',
-    desc: 'Acompanhe cada imóvel desde o primeiro contato até a entrada na carteira.',
+    title: 'Análises e relatórios mais úteis',
+    desc: 'Informações organizadas para apoiar decisões e dar mais clareza ao trabalho.',
   },
   {
-    title: 'Agenda inteligente',
-    desc: 'Encaixe visitas e compromissos sem perder prazos ou oportunidades.',
-  },
-  {
-    title: 'Documentos digitais',
-    desc: 'Organize contratos, pendências e aprovações em um mesmo fluxo.',
-  },
-  {
-    title: 'Análise comparativa de mercado',
-    desc: 'Compare preços com dados reais da sua região para tomar decisões mais seguras.',
-  },
-  {
-    title: 'Histórico de visitas',
-    desc: 'Registre o que foi conversado e o que precisa ser feito depois.',
-  },
-  {
-    title: 'Acompanhamento de oportunidades',
-    desc: 'Mantenha o progresso de cada cliente visível e fácil de acessar.',
-  },
-  {
-    title: 'Acesso pelo celular',
-    desc: 'Leve a Scarlet com você para o campo e acompanhe o trabalho em qualquer lugar.',
+    title: 'Uma rotina cada vez mais fluida',
+    desc: 'Aperfeiçoamentos que tornam a experiência com a Scarlet cada vez mais simples e eficiente.',
   },
 ]
 
@@ -41,23 +20,30 @@ export default function Timeline() {
     <section id="em-breve" className="py-28 lg:py-36 bg-mist/60 border-y border-line">
       <div className="max-w-4xl mx-auto px-6 lg:px-10">
         <Reveal className="text-center mb-16">
-          <p className="text-xs font-mono uppercase tracking-widest text-scarlet mb-4">Roteiro</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-scarlet mb-4">Desenvolvimento</p>
           <h2 className="font-display text-4xl lg:text-5xl font-semibold tracking-tight">
-            Estamos construindo
+            A Scarlet continua evoluindo.
           </h2>
           <p className="mt-4 text-base text-graphite max-w-2xl mx-auto">
             A Scarlet evolui para atender às necessidades de quem vive o mercado imobiliário.
           </p>
         </Reveal>
 
-        <div className="relative pl-8">
-          <div className="absolute left-[3px] top-2 bottom-2 w-px bg-line" />
-          <ul className="space-y-9">
-            {ROADMAP.map((item, i) => (
-              <RoadmapItem key={item.title} {...item} delay={(i % 4) * 0.08} />
-            ))}
-          </ul>
+        <div className="grid md:grid-cols-3 gap-px bg-line rounded-2xl overflow-hidden border border-line">
+          {EVOLUTION_AREAS.map((item, i) => (
+            <Reveal key={item.title} delay={i * 0.08} className="bg-paper p-7 lg:p-8">
+              <h3 className="font-medium text-ink mb-3">{item.title}</h3>
+              <p className="text-sm text-graphite leading-relaxed">{item.desc}</p>
+            </Reveal>
+          ))}
         </div>
+
+        <Reveal delay={0.24} className="mt-12 text-center">
+          <p className="text-lg font-medium text-ink leading-relaxed max-w-2xl mx-auto">
+            A Scarlet evolui com experiências reais. Sua opinião faz parte desse processo de
+            aperfeiçoamento.
+          </p>
+        </Reveal>
       </div>
     </section>
   )

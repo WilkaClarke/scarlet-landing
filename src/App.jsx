@@ -1,6 +1,5 @@
 import Nav from './sections/Nav.jsx'
 import Hero from './sections/Hero.jsx'
-import TrustStrip from './sections/TrustStrip.jsx'
 import Features from './sections/Features.jsx'
 import Story from './sections/Story.jsx'
 import ProductShowcase from './sections/ProductShowcase.jsx'
@@ -14,7 +13,6 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <TrustStrip />
         <Features />
         <Story />
         <ProductShowcase />
